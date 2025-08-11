@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>3D Calculator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <div class="background"></div>
+  <main class="container">
+    <div class="scene" id="scene">
+      <div class="calculator" id="calculator" aria-label="3D Calculator" role="application">
+        <div class="display" id="display" data-depth="30" aria-live="polite">0</div>
+        <div class="keys" id="keys" role="group" aria-label="Calculator keys">
+          <button class="key function" data-action="clear" data-depth="10" aria-label="All Clear">AC</button>
+          <button class="key function" data-action="sign" data-depth="10" aria-label="Toggle Sign">±</button>
+          <button class="key function" data-action="percent" data-depth="10" aria-label="Percent">%</button>
+          <button class="key operator" data-action="operator" data-operator="/" data-depth="12" aria-label="Divide">÷</button>
+
+          <button class="key" data-digit="7" data-depth="6">7</button>
+          <button class="key" data-digit="8" data-depth="6">8</button>
+          <button class="key" data-digit="9" data-depth="6">9</button>
+          <button class="key operator" data-action="operator" data-operator="*" data-depth="12" aria-label="Multiply">×</button>
+
+          <button class="key" data-digit="4" data-depth="6">4</button>
+          <button class="key" data-digit="5" data-depth="6">5</button>
+          <button class="key" data-digit="6" data-depth="6">6</button>
+          <button class="key operator" data-action="operator" data-operator="-" data-depth="12" aria-label="Minus">−</button>
+
+          <button class="key" data-digit="1" data-depth="6">1</button>
+          <button class="key" data-digit="2" data-depth="6">2</button>
+          <button class="key" data-digit="3" data-depth="6">3</button>
+          <button class="key operator" data-action="operator" data-operator="+" data-depth="12" aria-label="Plus">+</button>
+
+          <button class="key zero" data-digit="0" data-depth="6">0</button>
+          <button class="key" data-action="decimal" data-depth="6">.</button>
+          <button class="key equals" data-action="equals" data-depth="16" aria-label="Equals">=</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="/app.js"></script>
+</body>
+</html>
