@@ -1,0 +1,24 @@
+{
+  "name": "workspace",
+  "version": "1.0.0",
+  "description": "commads  \"npm i --y\" Install packages  \"npm i ejs express\"",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tanmaychavan14/To-do-List-.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tanmaychavan14/To-do-List-/issues"
+  },
+  "homepage": "https://github.com/tanmaychavan14/To-do-List-#readme",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
