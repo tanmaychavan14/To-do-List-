@@ -1,0 +1,35 @@
+{
+  "manifest_version": 3,
+  "name": "PhishGuard AI",
+  "description": "Real-time AI phishing detection for Chrome/Edge.",
+  "version": "0.1.0",
+  "action": {
+    "default_title": "PhishGuard AI",
+    "default_popup": "popup.html"
+  },
+  "permissions": [
+    "activeTab",
+    "storage",
+    "scripting",
+    "tabs",
+    "webRequest"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_start"
+    }
+  ],
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  }
+}

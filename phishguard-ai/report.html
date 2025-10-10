@@ -1,0 +1,86 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PhishGuard AI Report</title>
+  <style>
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; margin: 24px; background: #0b1020; color: #e5e7eb; }
+    .card { background: #111827; border: 1px solid #1f2937; border-radius: 12px; padding: 16px; margin-bottom: 16px; }
+    .row { display: flex; gap: 16px; flex-wrap: wrap; }
+    .pill { padding: 4px 8px; border-radius: 999px; font-weight: 700; }
+    .safe { background: #064e3b; color: #a7f3d0; }
+    .suspicious { background: #78350f; color: #fde68a; }
+    .malicious { background: #7f1d1d; color: #fecaca; }
+    pre { background: #0b1220; border: 1px solid #1f2937; border-radius: 8px; padding: 12px; overflow: auto; }
+  </style>
+</head>
+<body>
+  <h1>PhishGuard AI Report</h1>
+  <div id="summary" class="card">Loading...</div>
+  <div id="details" class="card"><em>Waiting for details...</em></div>
+
+  <script type="module">
+    function cls(score) {
+      if (score > 0.7) return 'malicious';
+      if (score >= 0.3) return 'suspicious';
+      return 'safe';
+    }
+
+    function qs(name) {
+      const u = new URL(location.href);
+      return u.searchParams.get(name);
+    }
+
+    function renderSummary(result) {
+      const c = cls(result.score);
+      const pct = Math.round(result.score * 100);
+      document.getElementById('summary').innerHTML = `
+        <div class="row">
+          <div><strong>URL:</strong> ${result.url}</div>
+          <div class="pill ${c}">${result.label.toUpperCase()}</div>
+          <div><strong>Confidence:</strong> ${pct}%</div>
+        </div>
+      `;
+    }
+
+    function renderDetails(details) {
+      const el = document.getElementById('details');
+      if (!details) { el.innerHTML = '<em>No details provided by backend.</em>'; return; }
+
+      // Attempt to highlight plausible fields
+      const known = {
+        nlp_highlights: details.nlp_highlights,
+        suspicious_terms: details.suspicious_terms,
+        graph: details.graph,
+        features: details.features,
+        raw: details,
+      };
+
+      el.innerHTML = '';
+      for (const [key, value] of Object.entries(known)) {
+        if (value === undefined) continue;
+        const section = document.createElement('section');
+        section.className = 'card';
+        const title = document.createElement('h3');
+        title.textContent = key.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+        const pre = document.createElement('pre');
+        pre.textContent = typeof value === 'string' ? value : JSON.stringify(value, null, 2);
+        section.appendChild(title);
+        section.appendChild(pre);
+        el.appendChild(section);
+      }
+    }
+
+    const url = qs('url');
+    chrome.runtime.sendMessage({ type: 'GET_SCAN_DETAILS', url }, (resp) => {
+      if (resp?.result) {
+        renderSummary(resp.result);
+        renderDetails(resp.details);
+      } else {
+        document.getElementById('summary').textContent = 'No scan available for this URL.';
+      }
+    });
+  </script>
+</body>
+</html>

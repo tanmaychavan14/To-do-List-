@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PhishGuard AI</title>
+  <link rel="stylesheet" href="popup.css" />
+  <style>
+    /* size hint for Chrome */
+    html, body { width: 400px; height: 600px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1>PhishGuard AI</h1>
+      <span id="status-dot" class="status-dot"></span>
+    </header>
+
+    <section class="status-card">
+      <div class="status-row">
+        <span class="label">Status:</span>
+        <span id="status-label" class="value">Unknown</span>
+      </div>
+      <div class="status-row">
+        <span class="label">Confidence:</span>
+        <span id="status-score" class="value">—</span>
+      </div>
+      <div class="bar">
+        <div id="confidence-bar" class="bar-fill"></div>
+      </div>
+    </section>
+
+    <section class="scan-card">
+      <input id="url-input" class="input" type="url" placeholder="Enter URL to scan" />
+      <button id="scan-btn" class="btn">Scan URL</button>
+    </section>
+
+    <section class="links">
+      <a id="view-details" href="#">View Details</a>
+      <a id="open-options" href="#" class="right">Settings</a>
+    </section>
+
+    <footer class="footer">
+      <small>Colors: <span class="dot green"></span> Safe <span class="dot yellow"></span> Suspicious <span class="dot red"></span> Malicious</small>
+    </footer>
+  </div>
+  <script type="module" src="popup.js"></script>
+</body>
+</html>
